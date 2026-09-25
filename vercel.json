@@ -1,0 +1,9 @@
+{
+  "buildCommand": "cd \"Login Page/probe-nexus\" && npm install && npm run build",
+  "outputDirectory": "Login Page/probe-nexus/dist",
+  "installCommand": "echo 'skip global install'",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
