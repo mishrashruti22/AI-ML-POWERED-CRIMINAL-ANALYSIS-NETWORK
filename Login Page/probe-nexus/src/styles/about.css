@@ -1,4 +1,4 @@
-﻿/* =========================================================
+/* =========================================================
    PROBNEXUS - ABOUT PAGE
    ========================================================= */
 
@@ -53,8 +53,8 @@
 }
 
 .about-logo {
-    width: 48px;
-    height: 54px;
+    width: 72px;
+    height: 80px;
     object-fit: contain;
     mix-blend-mode: multiply;
 }
@@ -479,8 +479,8 @@
 }
 
 .footer-logo {
-    width: 36px;
-    height: 40px;
+    width: 52px;
+    height: 58px;
     object-fit: contain;
     filter: grayscale(1) brightness(0) invert(1);
 }
@@ -658,8 +658,8 @@ body.dark-mode .service-content p {
     }
 
     .about-logo {
-        width: 40px;
-        height: 46px;
+        width: 56px;
+        height: 64px;
     }
 
     .about-brand-name {

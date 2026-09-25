@@ -63,8 +63,8 @@
 }
 
 .signup-brand-logo {
-    width: 48px;
-    height: 58px;
+    width: 72px;
+    height: 80px;
     object-fit: contain;
 }
 
@@ -271,8 +271,8 @@
 }
 
 .signup-card-logo {
-    width: 54px;
-    height: 60px;
+    width: 80px;
+    height: 88px;
     object-fit: contain;
     margin-bottom: 10px;
 }
@@ -1050,7 +1050,7 @@
 
 @media (max-width: 520px) {
     .signup-navbar { padding: 0 17px; }
-    .signup-brand-logo { width: 39px; height: 48px; }
+    .signup-brand-logo { width: 56px; height: 64px; }
     .signup-brand-name { font-size: 22px; }
     .signup-intro h1 { font-size: 42px; letter-spacing: -2px; }
     .signup-category { font-size: 8px; letter-spacing: 2px; }

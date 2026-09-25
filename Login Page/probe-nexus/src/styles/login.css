@@ -61,8 +61,8 @@
 }
 
 .brand-logo {
-    width: 48px;
-    height: 58px;
+    width: 72px;
+    height: 80px;
 
     object-fit: contain;
 }
@@ -389,8 +389,8 @@
 }
 
 .login-logo {
-    width: 62px;
-    height: 68px;
+    width: 80px;
+    height: 88px;
 
     object-fit: contain;
 
@@ -997,8 +997,8 @@
     }
 
     .brand-logo {
-        width: 39px;
-        height: 48px;
+        width: 56px;
+        height: 64px;
     }
 
     .brand-name {
