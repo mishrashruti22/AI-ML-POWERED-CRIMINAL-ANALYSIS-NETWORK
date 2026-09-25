@@ -1,0 +1,193 @@
+/* =========================================================
+   PROBNEXUS — CONTENTS PAGE
+   ========================================================= */
+
+.contents-page {
+    --maroon: #8e1026;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: #f4f0ec;
+    overflow-x: hidden;
+}
+
+.contents-hero {
+    position: relative;
+    padding: 90px 6% 60px;
+    background-image:
+        linear-gradient(90deg,
+            rgba(245, 241, 237, 0.97) 0%,
+            rgba(245, 241, 237, 0.85) 60%,
+            rgba(245, 241, 237, 0.5) 100%),
+        url("/investigation-bg.png");
+    background-size: cover;
+    background-position: center top;
+    border-bottom: 1px solid rgba(89, 68, 68, 0.1);
+}
+
+.contents-hero-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.contents-hero-label span:first-child {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #464142;
+}
+
+.contents-label-line {
+    width: 50px;
+    height: 1.5px;
+    background: var(--maroon);
+    display: block;
+}
+
+.contents-hero h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(40px, 4.5vw, 62px);
+    font-weight: 500;
+    color: #171515;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin: 0 0 16px;
+}
+
+.contents-hero h1 span { color: var(--maroon); }
+
+.contents-hero p {
+    font-size: 16px;
+    color: #696364;
+    max-width: 520px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Contents grid */
+.contents-body {
+    padding: 60px 6% 80px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.contents-category {
+    margin-bottom: 48px;
+}
+
+.contents-cat-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(89, 68, 68, 0.12);
+}
+
+.contents-cat-num {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: rgba(142, 16, 38, 0.15);
+    line-height: 1;
+}
+
+.contents-cat-header h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #241d1e;
+    margin: 0;
+}
+
+.contents-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.contents-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    background: rgba(250, 247, 243, 0.85);
+    border: 1px solid rgba(89, 68, 68, 0.09);
+    border-radius: 9px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.contents-item:hover {
+    border-color: rgba(142, 16, 38, 0.3);
+    transform: translateY(-1px);
+}
+
+.contents-item-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--maroon);
+    margin-top: 5px;
+    flex-shrink: 0;
+}
+
+.contents-item-text h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: #241d1e;
+    margin: 0 0 4px;
+}
+
+.contents-item-text p {
+    font-size: 11px;
+    color: #696364;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Footer */
+.contents-footer {
+    background: linear-gradient(90deg, #171315, #251619 55%, #32161b);
+    color: #fff;
+    padding: 28px 6%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.ct-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.ct-footer-logo {
+    width: 36px;
+    height: 40px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
+
+.ct-footer-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.ct-footer-right {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.6);
+}
+
+@media (max-width: 700px) {
+    .contents-items { grid-template-columns: 1fr; }
+    .contents-hero { padding: 80px 25px 50px; }
+    .contents-body { padding: 40px 25px 60px; }
+}

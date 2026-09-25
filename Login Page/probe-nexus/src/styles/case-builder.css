@@ -1,0 +1,607 @@
+/* ============================================================
+   PROBNEXUS — INVESTIGATION CASE BUILDER STYLES
+   Modern Dark Glassmorphism, Crimson Accents, Live Pipeline UI
+   ============================================================ */
+
+.cb-page {
+  min-height: 100vh;
+  background: radial-gradient(circle at 10% 20%, #150a10 0%, #0d0d15 60%, #08080c 100%);
+  color: #e2e8f0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  padding-bottom: 5rem;
+}
+
+/* ── Top Header ── */
+.cb-header {
+  padding: 1.75rem 2.5rem 1.25rem;
+  border-bottom: 1px solid rgba(139, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  background: rgba(13, 13, 21, 0.7);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.cb-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.cb-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.cb-title {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cb-title-badge {
+  background: linear-gradient(135deg, #8B0000 0%, #b91c1c 100%);
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px rgba(185, 28, 28, 0.4);
+}
+
+.cb-subtitle {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.cb-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* ── Action Buttons ── */
+.cb-btn-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 1.15rem;
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.18), rgba(180, 83, 9, 0.28));
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 9px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cb-btn-demo:hover {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.35), rgba(180, 83, 9, 0.45));
+  border-color: #f59e0b;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+}
+
+.cb-btn-analyze {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.4rem;
+  background: linear-gradient(135deg, #8B0000 0%, #dc2626 100%);
+  color: #ffffff;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: 9px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 18px rgba(185, 28, 28, 0.45);
+}
+
+.cb-btn-analyze:hover:not(:disabled) {
+  background: linear-gradient(135deg, #a30000 0%, #ef4444 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(239, 68, 68, 0.6);
+}
+
+.cb-btn-analyze:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cb-btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cb-btn-back:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+}
+
+/* ── Banner Alerts ── */
+.cb-banner {
+  margin: 1.25rem 2.5rem 0;
+  padding: 0.75rem 1.2rem;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.cb-banner.success {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: #34d399;
+}
+
+.cb-banner.error {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #f87171;
+}
+
+.cb-banner.info {
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  color: #60a5fa;
+}
+
+/* ── Navigation Tabs ── */
+.cb-tabs {
+  padding: 1.25rem 2.5rem 0;
+  display: flex;
+  gap: 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  overflow-x: auto;
+}
+
+.cb-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  color: #94a3b8;
+  border: none;
+  border-bottom: 2px solid transparent;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.cb-tab:hover {
+  color: #f1f5f9;
+}
+
+.cb-tab.active {
+  color: #ffffff;
+  border-bottom-color: #dc2626;
+}
+
+.cb-tab-count {
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+}
+
+.cb-tab.active .cb-tab-count {
+  background: rgba(220, 38, 38, 0.25);
+  color: #fca5a5;
+}
+
+/* ── Container Layout ── */
+.cb-content {
+  padding: 1.75rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Glass Cards ── */
+.cb-card {
+  background: rgba(18, 18, 28, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.cb-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.cb-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cb-card-desc {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 0.2rem 0 0;
+}
+
+/* ── Forms ── */
+.cb-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+.cb-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.cb-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.cb-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.cb-label span.req {
+  color: #ef4444;
+  margin-left: 0.2rem;
+}
+
+.cb-input,
+.cb-select,
+.cb-textarea {
+  background: rgba(10, 10, 16, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+  color: #f1f5f9;
+  font-size: 0.85rem;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cb-input:focus,
+.cb-select:focus,
+.cb-textarea:focus {
+  border-color: rgba(220, 38, 38, 0.6);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+  background: rgba(15, 15, 24, 0.85);
+}
+
+.cb-input::placeholder,
+.cb-textarea::placeholder {
+  color: #475569;
+}
+
+.cb-textarea {
+  min-height: 75px;
+  resize: vertical;
+}
+
+.cb-form-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.cb-btn-secondary {
+  padding: 0.55rem 1.1rem;
+  background: rgba(255, 255, 255, 0.06);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cb-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.cb-btn-primary {
+  padding: 0.55rem 1.25rem;
+  background: linear-gradient(135deg, #8B0000, #b91c1c);
+  color: #ffffff;
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cb-btn-primary:hover {
+  background: linear-gradient(135deg, #a30000, #dc2626);
+  transform: translateY(-1px);
+}
+
+/* ── Data Tables ── */
+.cb-table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(10, 10, 16, 0.4);
+  margin-top: 1rem;
+}
+
+.cb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  text-align: left;
+}
+
+.cb-table th {
+  background: rgba(255, 255, 255, 0.03);
+  color: #94a3b8;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  white-space: nowrap;
+}
+
+.cb-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: #e2e8f0;
+  vertical-align: middle;
+}
+
+.cb-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cb-table tr:hover {
+  background: rgba(139, 0, 0, 0.06);
+}
+
+.cb-table td.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: #93c5fd;
+}
+
+.cb-table-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.cb-btn-delete {
+  padding: 0.3rem 0.6rem;
+  background: rgba(239, 68, 68, 0.12);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 6px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cb-btn-delete:hover {
+  background: rgba(239, 68, 68, 0.25);
+  border-color: #ef4444;
+}
+
+.cb-empty {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+/* ── Live AI Analytics Pipeline Modal ── */
+.cb-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 3, 6, 0.82);
+  backdrop-filter: blur(16px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.25s ease;
+}
+
+.cb-modal {
+  width: 100%;
+  max-width: 580px;
+  background: linear-gradient(135deg, #13131f 0%, #0d0d17 100%);
+  border: 1px solid rgba(139, 0, 0, 0.4);
+  border-radius: 18px;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(139, 0, 0, 0.25);
+  animation: scaleUp 0.3s ease;
+}
+
+.cb-modal-head {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.cb-modal-head h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 0 0 0.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.cb-modal-head p {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin: 0;
+}
+
+/* ── Pipeline Steps ── */
+.cb-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.75rem;
+}
+
+.cb-step-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.65rem 0.95rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.25s ease;
+}
+
+.cb-step-item.pending {
+  color: #64748b;
+  opacity: 0.55;
+}
+
+.cb-step-item.running {
+  background: rgba(139, 0, 0, 0.15);
+  border-color: rgba(220, 38, 38, 0.4);
+  color: #fca5a5;
+}
+
+.cb-step-item.done {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.25);
+  color: #34d399;
+}
+
+.cb-step-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.cb-step-item.pending .cb-step-icon {
+  background: rgba(255, 255, 255, 0.06);
+  color: #64748b;
+}
+
+.cb-step-item.running .cb-step-icon {
+  background: #dc2626;
+  color: #ffffff;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+.cb-step-item.done .cb-step-icon {
+  background: #10b981;
+  color: #ffffff;
+}
+
+.cb-step-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  flex: 1;
+}
+
+.cb-step-status-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.94); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.75; }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .cb-header {
+    padding: 1.25rem 1.25rem 1rem;
+  }
+  .cb-tabs {
+    padding: 1rem 1.25rem 0;
+  }
+  .cb-content {
+    padding: 1.25rem;
+  }
+  .cb-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

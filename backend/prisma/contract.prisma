@@ -1,0 +1,191 @@
+// use prisma-next
+
+model User {
+  id            String   @id @default(uuid())
+  fullName      String
+  departmentId  String   @unique
+  email         String   @unique
+  passwordHash  String
+  role          String   @default("INVESTIGATOR")
+  emailVerified Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     temporal.updatedAt()
+
+  cases Case[]
+}
+
+model Case {
+  id          String   @id @default(uuid())
+  caseNumber  String   @unique
+  title       String
+  description String?
+  status      String   @default("OPEN")
+  priority    String   @default("MEDIUM")
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   temporal.updatedAt()
+
+  createdBy    User                   @relation(fields: [createdById], references: [id])
+  firRecords   FirRecord[]
+  callRecords  CallRecord[]
+  transactions FinancialTransaction[]
+  communities  Community[]
+  patterns     SuspiciousPattern[]
+  predictions  Prediction[]
+}
+
+model FirRecord {
+  id           String   @id @default(uuid())
+  caseId       String
+  firNumber    String
+  incidentDate DateTime
+  location     String?
+  description  String?
+  sourceFile   String?
+  createdAt    DateTime @default(now())
+
+  case Case @relation(fields: [caseId], references: [id])
+}
+
+model CallRecord {
+  id              String   @id @default(uuid())
+  caseId          String
+  callerPhone     String
+  receiverPhone   String
+  callDate        DateTime
+  durationSeconds Int?
+  createdAt       DateTime @default(now())
+
+  case Case @relation(fields: [caseId], references: [id])
+}
+
+model FinancialTransaction {
+  id                   String   @id @default(uuid())
+  caseId               String
+  sender               String
+  receiver             String
+  amount               Decimal
+  transactionDate      DateTime
+  transactionReference String?
+  createdAt             DateTime @default(now())
+
+  case Case @relation(fields: [caseId], references: [id])
+}
+
+model Entity {
+  id               String   @id @default(uuid())
+  entityType       String
+  entityValue      String
+  normalizedValue  String?
+  createdAt        DateTime @default(now())
+
+  recordEntities    RecordEntity[]
+  relationshipsA    Relationship[]      @relation("EntityA")
+  relationshipsB    Relationship[]      @relation("EntityB")
+  scores            EntityScore[]
+  communityMembers  CommunityMember[]
+  predictionsA      Prediction[]        @relation("PredictionA")
+  predictionsB      Prediction[]        @relation("PredictionB")
+  patterns          SuspiciousPattern[]
+  explanations      Explanation[]
+}
+
+model RecordEntity {
+  id       String @id @default(uuid())
+  recordId String
+  entityId String
+
+  entity Entity @relation(fields: [entityId], references: [id])
+
+  @@unique([recordId, entityId])
+}
+
+model Relationship {
+  id              String   @id @default(uuid())
+  entityAId       String
+  entityBId       String
+  relationshipType String
+  weight          Float    @default(1)
+  sourceRecordId  String?
+  confidenceScore Float?
+  createdAt       DateTime @default(now())
+
+  entityA Entity @relation("EntityA", fields: [entityAId], references: [id])
+  entityB Entity @relation("EntityB", fields: [entityBId], references: [id])
+}
+
+model EntityScore {
+  id               String   @id @default(uuid())
+  entityId         String
+  degreeScore      Float?
+  betweennessScore Float?
+  influenceScore   Float?
+  rank             Int?
+  createdAt        DateTime @default(now())
+
+  entity Entity @relation(fields: [entityId], references: [id])
+}
+
+model Community {
+  id              String   @id @default(uuid())
+  caseId          String
+  communityNumber Int
+  communityName   String?
+  createdAt       DateTime @default(now())
+
+  case    Case              @relation(fields: [caseId], references: [id])
+  members CommunityMember[]
+}
+
+model CommunityMember {
+  id          String @id @default(uuid())
+  communityId String
+  entityId    String
+
+  community Community @relation(fields: [communityId], references: [id])
+  entity    Entity    @relation(fields: [entityId], references: [id])
+
+  @@unique([communityId, entityId])
+}
+
+model SuspiciousPattern {
+  id          String   @id @default(uuid())
+  caseId      String
+  entityId    String?
+  patternType String
+  severity    String
+  description String?
+  detectedAt  DateTime @default(now())
+
+  case   Case    @relation(fields: [caseId], references: [id])
+  entity Entity? @relation(fields: [entityId], references: [id])
+}
+
+model Prediction {
+  id               String   @id @default(uuid())
+  caseId           String
+  entityAId        String
+  entityBId        String
+  predictionScore  Float
+  predictionMethod String
+  status           String   @default("PREDICTED")
+  createdAt        DateTime @default(now())
+
+  case         Case         @relation(fields: [caseId], references: [id])
+  entityA      Entity       @relation("PredictionA", fields: [entityAId], references: [id])
+  entityB      Entity       @relation("PredictionB", fields: [entityBId], references: [id])
+  explanations Explanation[]
+}
+
+model Explanation {
+  id              String   @id @default(uuid())
+  entityId        String
+  predictionId    String?
+  explanationType String
+  explanationText String
+  supportingData  String?
+  createdAt       DateTime @default(now())
+
+  entity     Entity      @relation(fields: [entityId], references: [id])
+  prediction Prediction? @relation(fields: [predictionId], references: [id])
+}

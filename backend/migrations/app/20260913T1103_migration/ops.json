@@ -1,0 +1,2233 @@
+[
+  {
+    "id": "schema.public",
+    "label": "Create schema \"public\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres"
+    },
+    "precheck": [],
+    "execute": [
+      {
+        "description": "Create schema \"public\"",
+        "sql": "CREATE SCHEMA IF NOT EXISTS \"public\"",
+        "params": []
+      }
+    ],
+    "postcheck": []
+  },
+  {
+    "id": "table.callRecord",
+    "label": "Create table \"callRecord\"",
+    "summary": "Creates table \"callRecord\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "callRecord"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"callRecord\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"callRecord\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"callRecord\"",
+        "sql": "CREATE TABLE \"public\".\"callRecord\" (\n  \"callDate\" timestamptz NOT NULL,\n  \"callerPhone\" text NOT NULL,\n  \"caseId\" text NOT NULL,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"durationSeconds\" int4,\n  \"id\" text NOT NULL,\n  \"receiverPhone\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"callRecord\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"callRecord\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.case",
+    "label": "Create table \"case\"",
+    "summary": "Creates table \"case\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "case"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"case\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"case\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"case\"",
+        "sql": "CREATE TABLE \"public\".\"case\" (\n  \"caseNumber\" text NOT NULL,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"createdById\" text NOT NULL,\n  \"description\" text,\n  \"id\" text NOT NULL,\n  \"priority\" text DEFAULT 'MEDIUM' NOT NULL,\n  \"status\" text DEFAULT 'OPEN' NOT NULL,\n  \"title\" text NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"case\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"case\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.community",
+    "label": "Create table \"community\"",
+    "summary": "Creates table \"community\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "community"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"community\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"community\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"community\"",
+        "sql": "CREATE TABLE \"public\".\"community\" (\n  \"caseId\" text NOT NULL,\n  \"communityName\" text,\n  \"communityNumber\" int4 NOT NULL,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"id\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"community\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"community\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.communityMember",
+    "label": "Create table \"communityMember\"",
+    "summary": "Creates table \"communityMember\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "communityMember"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"communityMember\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"communityMember\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"communityMember\"",
+        "sql": "CREATE TABLE \"public\".\"communityMember\" (\n  \"communityId\" text NOT NULL,\n  \"entityId\" text NOT NULL,\n  \"id\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"communityMember\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"communityMember\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.entity",
+    "label": "Create table \"entity\"",
+    "summary": "Creates table \"entity\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "entity"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"entity\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"entity\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"entity\"",
+        "sql": "CREATE TABLE \"public\".\"entity\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"entityType\" text NOT NULL,\n  \"entityValue\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"normalizedValue\" text,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"entity\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"entity\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.entityScore",
+    "label": "Create table \"entityScore\"",
+    "summary": "Creates table \"entityScore\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "entityScore"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"entityScore\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"entityScore\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"entityScore\"",
+        "sql": "CREATE TABLE \"public\".\"entityScore\" (\n  \"betweennessScore\" float8,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"degreeScore\" float8,\n  \"entityId\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"influenceScore\" float8,\n  \"rank\" int4,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"entityScore\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"entityScore\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.explanation",
+    "label": "Create table \"explanation\"",
+    "summary": "Creates table \"explanation\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "explanation"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"explanation\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"explanation\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"explanation\"",
+        "sql": "CREATE TABLE \"public\".\"explanation\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"entityId\" text NOT NULL,\n  \"explanationText\" text NOT NULL,\n  \"explanationType\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"predictionId\" text,\n  \"supportingData\" text,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"explanation\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"explanation\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.financialTransaction",
+    "label": "Create table \"financialTransaction\"",
+    "summary": "Creates table \"financialTransaction\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "financialTransaction"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"financialTransaction\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"financialTransaction\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"financialTransaction\"",
+        "sql": "CREATE TABLE \"public\".\"financialTransaction\" (\n  \"amount\" numeric NOT NULL,\n  \"caseId\" text NOT NULL,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"id\" text NOT NULL,\n  \"receiver\" text NOT NULL,\n  \"sender\" text NOT NULL,\n  \"transactionDate\" timestamptz NOT NULL,\n  \"transactionReference\" text,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"financialTransaction\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"financialTransaction\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.firRecord",
+    "label": "Create table \"firRecord\"",
+    "summary": "Creates table \"firRecord\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "firRecord"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"firRecord\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"firRecord\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"firRecord\"",
+        "sql": "CREATE TABLE \"public\".\"firRecord\" (\n  \"caseId\" text NOT NULL,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"description\" text,\n  \"firNumber\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"incidentDate\" timestamptz NOT NULL,\n  \"location\" text,\n  \"sourceFile\" text,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"firRecord\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"firRecord\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.prediction",
+    "label": "Create table \"prediction\"",
+    "summary": "Creates table \"prediction\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "prediction"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"prediction\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"prediction\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"prediction\"",
+        "sql": "CREATE TABLE \"public\".\"prediction\" (\n  \"caseId\" text NOT NULL,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"entityAId\" text NOT NULL,\n  \"entityBId\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"predictionMethod\" text NOT NULL,\n  \"predictionScore\" float8 NOT NULL,\n  \"status\" text DEFAULT 'PREDICTED' NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"prediction\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"prediction\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.recordEntity",
+    "label": "Create table \"recordEntity\"",
+    "summary": "Creates table \"recordEntity\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "recordEntity"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"recordEntity\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"recordEntity\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"recordEntity\"",
+        "sql": "CREATE TABLE \"public\".\"recordEntity\" (\n  \"entityId\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"recordId\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"recordEntity\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"recordEntity\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.relationship",
+    "label": "Create table \"relationship\"",
+    "summary": "Creates table \"relationship\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "relationship"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"relationship\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"relationship\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"relationship\"",
+        "sql": "CREATE TABLE \"public\".\"relationship\" (\n  \"confidenceScore\" float8,\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"entityAId\" text NOT NULL,\n  \"entityBId\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"relationshipType\" text NOT NULL,\n  \"sourceRecordId\" text,\n  \"weight\" float8 DEFAULT 1 NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"relationship\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"relationship\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.suspiciousPattern",
+    "label": "Create table \"suspiciousPattern\"",
+    "summary": "Creates table \"suspiciousPattern\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "suspiciousPattern"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"suspiciousPattern\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"suspiciousPattern\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"suspiciousPattern\"",
+        "sql": "CREATE TABLE \"public\".\"suspiciousPattern\" (\n  \"caseId\" text NOT NULL,\n  \"description\" text,\n  \"detectedAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"entityId\" text,\n  \"id\" text NOT NULL,\n  \"patternType\" text NOT NULL,\n  \"severity\" text NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"suspiciousPattern\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"suspiciousPattern\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "table.user",
+    "label": "Create table \"user\"",
+    "summary": "Creates table \"user\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "table",
+        "name": "user"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure table \"user\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"user\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create table \"user\"",
+        "sql": "CREATE TABLE \"public\".\"user\" (\n  \"createdAt\" timestamptz DEFAULT (now()) NOT NULL,\n  \"departmentId\" text NOT NULL,\n  \"email\" text NOT NULL,\n  \"emailVerified\" bool DEFAULT false NOT NULL,\n  \"fullName\" text NOT NULL,\n  \"id\" text NOT NULL,\n  \"passwordHash\" text NOT NULL,\n  \"role\" text DEFAULT 'INVESTIGATOR' NOT NULL,\n  \"updatedAt\" timestamptz NOT NULL,\n  PRIMARY KEY (\"id\")\n)",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify table \"user\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"user\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.case.case_caseNumber_key",
+    "label": "Add unique constraint on \"case\" (caseNumber)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "case_caseNumber_key",
+        "table": "case"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"case_caseNumber_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "case_caseNumber_key",
+          "public",
+          "\"public\".\"case\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"case_caseNumber_key\"",
+        "sql": "ALTER TABLE \"public\".\"case\" ADD CONSTRAINT \"case_caseNumber_key\" UNIQUE (\"caseNumber\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"case_caseNumber_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "case_caseNumber_key",
+          "public",
+          "\"public\".\"case\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.communityMember.communityMember_communityId_entityId_key",
+    "label": "Add unique constraint on \"communityMember\" (communityId, entityId)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "communityMember_communityId_entityId_key",
+        "table": "communityMember"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"communityMember_communityId_entityId_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "communityMember_communityId_entityId_key",
+          "public",
+          "\"public\".\"communityMember\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"communityMember_communityId_entityId_key\"",
+        "sql": "ALTER TABLE \"public\".\"communityMember\" ADD CONSTRAINT \"communityMember_communityId_entityId_key\" UNIQUE (\"communityId\", \"entityId\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"communityMember_communityId_entityId_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "communityMember_communityId_entityId_key",
+          "public",
+          "\"public\".\"communityMember\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.recordEntity.recordEntity_recordId_entityId_key",
+    "label": "Add unique constraint on \"recordEntity\" (recordId, entityId)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "recordEntity_recordId_entityId_key",
+        "table": "recordEntity"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"recordEntity_recordId_entityId_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "recordEntity_recordId_entityId_key",
+          "public",
+          "\"public\".\"recordEntity\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"recordEntity_recordId_entityId_key\"",
+        "sql": "ALTER TABLE \"public\".\"recordEntity\" ADD CONSTRAINT \"recordEntity_recordId_entityId_key\" UNIQUE (\"recordId\", \"entityId\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"recordEntity_recordId_entityId_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "recordEntity_recordId_entityId_key",
+          "public",
+          "\"public\".\"recordEntity\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.user.user_departmentId_key",
+    "label": "Add unique constraint on \"user\" (departmentId)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "user_departmentId_key",
+        "table": "user"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"user_departmentId_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "user_departmentId_key",
+          "public",
+          "\"public\".\"user\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"user_departmentId_key\"",
+        "sql": "ALTER TABLE \"public\".\"user\" ADD CONSTRAINT \"user_departmentId_key\" UNIQUE (\"departmentId\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"user_departmentId_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "user_departmentId_key",
+          "public",
+          "\"public\".\"user\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "unique.user.user_email_key",
+    "label": "Add unique constraint on \"user\" (email)",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "unique",
+        "name": "user_email_key",
+        "table": "user"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure constraint \"user_email_key\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "user_email_key",
+          "public",
+          "\"public\".\"user\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add unique constraint \"user_email_key\"",
+        "sql": "ALTER TABLE \"public\".\"user\" ADD CONSTRAINT \"user_email_key\" UNIQUE (\"email\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify constraint \"user_email_key\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "user_email_key",
+          "public",
+          "\"public\".\"user\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.callRecord.callRecord_caseId_idx_f7093793",
+    "label": "Create index \"callRecord_caseId_idx_f7093793\" on \"callRecord\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "callRecord_caseId_idx_f7093793",
+        "table": "callRecord"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"callRecord_caseId_idx_f7093793\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"callRecord_caseId_idx_f7093793\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"callRecord_caseId_idx_f7093793\"",
+        "sql": "CREATE INDEX \"callRecord_caseId_idx_f7093793\" ON \"public\".\"callRecord\" (\"caseId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"callRecord_caseId_idx_f7093793\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"callRecord_caseId_idx_f7093793\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.case.case_createdById_idx_8bf640ed",
+    "label": "Create index \"case_createdById_idx_8bf640ed\" on \"case\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "case_createdById_idx_8bf640ed",
+        "table": "case"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"case_createdById_idx_8bf640ed\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"case_createdById_idx_8bf640ed\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"case_createdById_idx_8bf640ed\"",
+        "sql": "CREATE INDEX \"case_createdById_idx_8bf640ed\" ON \"public\".\"case\" (\"createdById\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"case_createdById_idx_8bf640ed\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"case_createdById_idx_8bf640ed\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.community.community_caseId_idx_f7093793",
+    "label": "Create index \"community_caseId_idx_f7093793\" on \"community\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "community_caseId_idx_f7093793",
+        "table": "community"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"community_caseId_idx_f7093793\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"community_caseId_idx_f7093793\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"community_caseId_idx_f7093793\"",
+        "sql": "CREATE INDEX \"community_caseId_idx_f7093793\" ON \"public\".\"community\" (\"caseId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"community_caseId_idx_f7093793\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"community_caseId_idx_f7093793\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.communityMember.communityMember_communityId_idx_e2c72225",
+    "label": "Create index \"communityMember_communityId_idx_e2c72225\" on \"communityMember\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "communityMember_communityId_idx_e2c72225",
+        "table": "communityMember"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"communityMember_communityId_idx_e2c72225\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"communityMember_communityId_idx_e2c72225\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"communityMember_communityId_idx_e2c72225\"",
+        "sql": "CREATE INDEX \"communityMember_communityId_idx_e2c72225\" ON \"public\".\"communityMember\" (\"communityId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"communityMember_communityId_idx_e2c72225\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"communityMember_communityId_idx_e2c72225\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.communityMember.communityMember_entityId_idx_18814ca5",
+    "label": "Create index \"communityMember_entityId_idx_18814ca5\" on \"communityMember\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "communityMember_entityId_idx_18814ca5",
+        "table": "communityMember"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"communityMember_entityId_idx_18814ca5\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"communityMember_entityId_idx_18814ca5\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"communityMember_entityId_idx_18814ca5\"",
+        "sql": "CREATE INDEX \"communityMember_entityId_idx_18814ca5\" ON \"public\".\"communityMember\" (\"entityId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"communityMember_entityId_idx_18814ca5\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"communityMember_entityId_idx_18814ca5\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.entityScore.entityScore_entityId_idx_18814ca5",
+    "label": "Create index \"entityScore_entityId_idx_18814ca5\" on \"entityScore\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "entityScore_entityId_idx_18814ca5",
+        "table": "entityScore"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"entityScore_entityId_idx_18814ca5\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"entityScore_entityId_idx_18814ca5\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"entityScore_entityId_idx_18814ca5\"",
+        "sql": "CREATE INDEX \"entityScore_entityId_idx_18814ca5\" ON \"public\".\"entityScore\" (\"entityId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"entityScore_entityId_idx_18814ca5\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"entityScore_entityId_idx_18814ca5\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.explanation.explanation_entityId_idx_18814ca5",
+    "label": "Create index \"explanation_entityId_idx_18814ca5\" on \"explanation\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "explanation_entityId_idx_18814ca5",
+        "table": "explanation"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"explanation_entityId_idx_18814ca5\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"explanation_entityId_idx_18814ca5\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"explanation_entityId_idx_18814ca5\"",
+        "sql": "CREATE INDEX \"explanation_entityId_idx_18814ca5\" ON \"public\".\"explanation\" (\"entityId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"explanation_entityId_idx_18814ca5\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"explanation_entityId_idx_18814ca5\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.explanation.explanation_predictionId_idx_95fca695",
+    "label": "Create index \"explanation_predictionId_idx_95fca695\" on \"explanation\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "explanation_predictionId_idx_95fca695",
+        "table": "explanation"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"explanation_predictionId_idx_95fca695\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"explanation_predictionId_idx_95fca695\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"explanation_predictionId_idx_95fca695\"",
+        "sql": "CREATE INDEX \"explanation_predictionId_idx_95fca695\" ON \"public\".\"explanation\" (\"predictionId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"explanation_predictionId_idx_95fca695\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"explanation_predictionId_idx_95fca695\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.financialTransaction.financialTransaction_caseId_idx_f7093793",
+    "label": "Create index \"financialTransaction_caseId_idx_f7093793\" on \"financialTransaction\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "financialTransaction_caseId_idx_f7093793",
+        "table": "financialTransaction"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"financialTransaction_caseId_idx_f7093793\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"financialTransaction_caseId_idx_f7093793\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"financialTransaction_caseId_idx_f7093793\"",
+        "sql": "CREATE INDEX \"financialTransaction_caseId_idx_f7093793\" ON \"public\".\"financialTransaction\" (\"caseId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"financialTransaction_caseId_idx_f7093793\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"financialTransaction_caseId_idx_f7093793\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.firRecord.firRecord_caseId_idx_f7093793",
+    "label": "Create index \"firRecord_caseId_idx_f7093793\" on \"firRecord\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "firRecord_caseId_idx_f7093793",
+        "table": "firRecord"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"firRecord_caseId_idx_f7093793\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"firRecord_caseId_idx_f7093793\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"firRecord_caseId_idx_f7093793\"",
+        "sql": "CREATE INDEX \"firRecord_caseId_idx_f7093793\" ON \"public\".\"firRecord\" (\"caseId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"firRecord_caseId_idx_f7093793\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"firRecord_caseId_idx_f7093793\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.prediction.prediction_caseId_idx_f7093793",
+    "label": "Create index \"prediction_caseId_idx_f7093793\" on \"prediction\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "prediction_caseId_idx_f7093793",
+        "table": "prediction"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"prediction_caseId_idx_f7093793\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"prediction_caseId_idx_f7093793\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"prediction_caseId_idx_f7093793\"",
+        "sql": "CREATE INDEX \"prediction_caseId_idx_f7093793\" ON \"public\".\"prediction\" (\"caseId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"prediction_caseId_idx_f7093793\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"prediction_caseId_idx_f7093793\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.prediction.prediction_entityAId_idx_1fa1f50c",
+    "label": "Create index \"prediction_entityAId_idx_1fa1f50c\" on \"prediction\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "prediction_entityAId_idx_1fa1f50c",
+        "table": "prediction"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"prediction_entityAId_idx_1fa1f50c\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"prediction_entityAId_idx_1fa1f50c\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"prediction_entityAId_idx_1fa1f50c\"",
+        "sql": "CREATE INDEX \"prediction_entityAId_idx_1fa1f50c\" ON \"public\".\"prediction\" (\"entityAId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"prediction_entityAId_idx_1fa1f50c\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"prediction_entityAId_idx_1fa1f50c\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.prediction.prediction_entityBId_idx_9512ec1c",
+    "label": "Create index \"prediction_entityBId_idx_9512ec1c\" on \"prediction\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "prediction_entityBId_idx_9512ec1c",
+        "table": "prediction"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"prediction_entityBId_idx_9512ec1c\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"prediction_entityBId_idx_9512ec1c\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"prediction_entityBId_idx_9512ec1c\"",
+        "sql": "CREATE INDEX \"prediction_entityBId_idx_9512ec1c\" ON \"public\".\"prediction\" (\"entityBId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"prediction_entityBId_idx_9512ec1c\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"prediction_entityBId_idx_9512ec1c\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.recordEntity.recordEntity_entityId_idx_18814ca5",
+    "label": "Create index \"recordEntity_entityId_idx_18814ca5\" on \"recordEntity\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "recordEntity_entityId_idx_18814ca5",
+        "table": "recordEntity"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"recordEntity_entityId_idx_18814ca5\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"recordEntity_entityId_idx_18814ca5\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"recordEntity_entityId_idx_18814ca5\"",
+        "sql": "CREATE INDEX \"recordEntity_entityId_idx_18814ca5\" ON \"public\".\"recordEntity\" (\"entityId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"recordEntity_entityId_idx_18814ca5\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"recordEntity_entityId_idx_18814ca5\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.relationship.relationship_entityAId_idx_1fa1f50c",
+    "label": "Create index \"relationship_entityAId_idx_1fa1f50c\" on \"relationship\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "relationship_entityAId_idx_1fa1f50c",
+        "table": "relationship"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"relationship_entityAId_idx_1fa1f50c\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"relationship_entityAId_idx_1fa1f50c\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"relationship_entityAId_idx_1fa1f50c\"",
+        "sql": "CREATE INDEX \"relationship_entityAId_idx_1fa1f50c\" ON \"public\".\"relationship\" (\"entityAId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"relationship_entityAId_idx_1fa1f50c\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"relationship_entityAId_idx_1fa1f50c\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.relationship.relationship_entityBId_idx_9512ec1c",
+    "label": "Create index \"relationship_entityBId_idx_9512ec1c\" on \"relationship\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "relationship_entityBId_idx_9512ec1c",
+        "table": "relationship"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"relationship_entityBId_idx_9512ec1c\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"relationship_entityBId_idx_9512ec1c\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"relationship_entityBId_idx_9512ec1c\"",
+        "sql": "CREATE INDEX \"relationship_entityBId_idx_9512ec1c\" ON \"public\".\"relationship\" (\"entityBId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"relationship_entityBId_idx_9512ec1c\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"relationship_entityBId_idx_9512ec1c\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.suspiciousPattern.suspiciousPattern_caseId_idx_f7093793",
+    "label": "Create index \"suspiciousPattern_caseId_idx_f7093793\" on \"suspiciousPattern\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "suspiciousPattern_caseId_idx_f7093793",
+        "table": "suspiciousPattern"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"suspiciousPattern_caseId_idx_f7093793\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"suspiciousPattern_caseId_idx_f7093793\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"suspiciousPattern_caseId_idx_f7093793\"",
+        "sql": "CREATE INDEX \"suspiciousPattern_caseId_idx_f7093793\" ON \"public\".\"suspiciousPattern\" (\"caseId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"suspiciousPattern_caseId_idx_f7093793\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"suspiciousPattern_caseId_idx_f7093793\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "index.suspiciousPattern.suspiciousPattern_entityId_idx_18814ca5",
+    "label": "Create index \"suspiciousPattern_entityId_idx_18814ca5\" on \"suspiciousPattern\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "index",
+        "name": "suspiciousPattern_entityId_idx_18814ca5",
+        "table": "suspiciousPattern"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure index \"suspiciousPattern_entityId_idx_18814ca5\" does not exist",
+        "sql": "SELECT (to_regclass($1)) IS NULL AS \"result\"",
+        "params": [
+          "\"public\".\"suspiciousPattern_entityId_idx_18814ca5\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "create index \"suspiciousPattern_entityId_idx_18814ca5\"",
+        "sql": "CREATE INDEX \"suspiciousPattern_entityId_idx_18814ca5\" ON \"public\".\"suspiciousPattern\" (\"entityId\")",
+        "params": []
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify index \"suspiciousPattern_entityId_idx_18814ca5\" exists",
+        "sql": "SELECT (to_regclass($1)) IS NOT NULL AS \"result\"",
+        "params": [
+          "\"public\".\"suspiciousPattern_entityId_idx_18814ca5\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.callRecord.callRecord_caseId_fkey",
+    "label": "Add foreign key \"callRecord_caseId_fkey\" on \"callRecord\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "callRecord_caseId_fkey",
+        "table": "callRecord"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"callRecord_caseId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "callRecord_caseId_fkey",
+          "public",
+          "\"public\".\"callRecord\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"callRecord_caseId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"callRecord\"\nADD CONSTRAINT \"callRecord_caseId_fkey\"\nFOREIGN KEY (\"caseId\")\nREFERENCES \"public\".\"case\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"callRecord_caseId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "callRecord_caseId_fkey",
+          "public",
+          "\"public\".\"callRecord\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.case.case_createdById_fkey",
+    "label": "Add foreign key \"case_createdById_fkey\" on \"case\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "case_createdById_fkey",
+        "table": "case"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"case_createdById_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "case_createdById_fkey",
+          "public",
+          "\"public\".\"case\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"case_createdById_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"case\"\nADD CONSTRAINT \"case_createdById_fkey\"\nFOREIGN KEY (\"createdById\")\nREFERENCES \"public\".\"user\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"case_createdById_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "case_createdById_fkey",
+          "public",
+          "\"public\".\"case\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.community.community_caseId_fkey",
+    "label": "Add foreign key \"community_caseId_fkey\" on \"community\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "community_caseId_fkey",
+        "table": "community"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"community_caseId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "community_caseId_fkey",
+          "public",
+          "\"public\".\"community\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"community_caseId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"community\"\nADD CONSTRAINT \"community_caseId_fkey\"\nFOREIGN KEY (\"caseId\")\nREFERENCES \"public\".\"case\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"community_caseId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "community_caseId_fkey",
+          "public",
+          "\"public\".\"community\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.communityMember.communityMember_communityId_fkey",
+    "label": "Add foreign key \"communityMember_communityId_fkey\" on \"communityMember\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "communityMember_communityId_fkey",
+        "table": "communityMember"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"communityMember_communityId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "communityMember_communityId_fkey",
+          "public",
+          "\"public\".\"communityMember\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"communityMember_communityId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"communityMember\"\nADD CONSTRAINT \"communityMember_communityId_fkey\"\nFOREIGN KEY (\"communityId\")\nREFERENCES \"public\".\"community\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"communityMember_communityId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "communityMember_communityId_fkey",
+          "public",
+          "\"public\".\"communityMember\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.communityMember.communityMember_entityId_fkey",
+    "label": "Add foreign key \"communityMember_entityId_fkey\" on \"communityMember\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "communityMember_entityId_fkey",
+        "table": "communityMember"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"communityMember_entityId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "communityMember_entityId_fkey",
+          "public",
+          "\"public\".\"communityMember\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"communityMember_entityId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"communityMember\"\nADD CONSTRAINT \"communityMember_entityId_fkey\"\nFOREIGN KEY (\"entityId\")\nREFERENCES \"public\".\"entity\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"communityMember_entityId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "communityMember_entityId_fkey",
+          "public",
+          "\"public\".\"communityMember\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.entityScore.entityScore_entityId_fkey",
+    "label": "Add foreign key \"entityScore_entityId_fkey\" on \"entityScore\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "entityScore_entityId_fkey",
+        "table": "entityScore"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"entityScore_entityId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "entityScore_entityId_fkey",
+          "public",
+          "\"public\".\"entityScore\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"entityScore_entityId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"entityScore\"\nADD CONSTRAINT \"entityScore_entityId_fkey\"\nFOREIGN KEY (\"entityId\")\nREFERENCES \"public\".\"entity\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"entityScore_entityId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "entityScore_entityId_fkey",
+          "public",
+          "\"public\".\"entityScore\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.explanation.explanation_entityId_fkey",
+    "label": "Add foreign key \"explanation_entityId_fkey\" on \"explanation\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "explanation_entityId_fkey",
+        "table": "explanation"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"explanation_entityId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "explanation_entityId_fkey",
+          "public",
+          "\"public\".\"explanation\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"explanation_entityId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"explanation\"\nADD CONSTRAINT \"explanation_entityId_fkey\"\nFOREIGN KEY (\"entityId\")\nREFERENCES \"public\".\"entity\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"explanation_entityId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "explanation_entityId_fkey",
+          "public",
+          "\"public\".\"explanation\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.explanation.explanation_predictionId_fkey",
+    "label": "Add foreign key \"explanation_predictionId_fkey\" on \"explanation\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "explanation_predictionId_fkey",
+        "table": "explanation"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"explanation_predictionId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "explanation_predictionId_fkey",
+          "public",
+          "\"public\".\"explanation\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"explanation_predictionId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"explanation\"\nADD CONSTRAINT \"explanation_predictionId_fkey\"\nFOREIGN KEY (\"predictionId\")\nREFERENCES \"public\".\"prediction\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"explanation_predictionId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "explanation_predictionId_fkey",
+          "public",
+          "\"public\".\"explanation\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.financialTransaction.financialTransaction_caseId_fkey",
+    "label": "Add foreign key \"financialTransaction_caseId_fkey\" on \"financialTransaction\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "financialTransaction_caseId_fkey",
+        "table": "financialTransaction"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"financialTransaction_caseId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "financialTransaction_caseId_fkey",
+          "public",
+          "\"public\".\"financialTransaction\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"financialTransaction_caseId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"financialTransaction\"\nADD CONSTRAINT \"financialTransaction_caseId_fkey\"\nFOREIGN KEY (\"caseId\")\nREFERENCES \"public\".\"case\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"financialTransaction_caseId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "financialTransaction_caseId_fkey",
+          "public",
+          "\"public\".\"financialTransaction\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.firRecord.firRecord_caseId_fkey",
+    "label": "Add foreign key \"firRecord_caseId_fkey\" on \"firRecord\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "firRecord_caseId_fkey",
+        "table": "firRecord"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"firRecord_caseId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "firRecord_caseId_fkey",
+          "public",
+          "\"public\".\"firRecord\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"firRecord_caseId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"firRecord\"\nADD CONSTRAINT \"firRecord_caseId_fkey\"\nFOREIGN KEY (\"caseId\")\nREFERENCES \"public\".\"case\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"firRecord_caseId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "firRecord_caseId_fkey",
+          "public",
+          "\"public\".\"firRecord\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.prediction.prediction_caseId_fkey",
+    "label": "Add foreign key \"prediction_caseId_fkey\" on \"prediction\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "prediction_caseId_fkey",
+        "table": "prediction"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"prediction_caseId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "prediction_caseId_fkey",
+          "public",
+          "\"public\".\"prediction\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"prediction_caseId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"prediction\"\nADD CONSTRAINT \"prediction_caseId_fkey\"\nFOREIGN KEY (\"caseId\")\nREFERENCES \"public\".\"case\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"prediction_caseId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "prediction_caseId_fkey",
+          "public",
+          "\"public\".\"prediction\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.prediction.prediction_entityAId_fkey",
+    "label": "Add foreign key \"prediction_entityAId_fkey\" on \"prediction\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "prediction_entityAId_fkey",
+        "table": "prediction"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"prediction_entityAId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "prediction_entityAId_fkey",
+          "public",
+          "\"public\".\"prediction\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"prediction_entityAId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"prediction\"\nADD CONSTRAINT \"prediction_entityAId_fkey\"\nFOREIGN KEY (\"entityAId\")\nREFERENCES \"public\".\"entity\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"prediction_entityAId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "prediction_entityAId_fkey",
+          "public",
+          "\"public\".\"prediction\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.prediction.prediction_entityBId_fkey",
+    "label": "Add foreign key \"prediction_entityBId_fkey\" on \"prediction\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "prediction_entityBId_fkey",
+        "table": "prediction"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"prediction_entityBId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "prediction_entityBId_fkey",
+          "public",
+          "\"public\".\"prediction\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"prediction_entityBId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"prediction\"\nADD CONSTRAINT \"prediction_entityBId_fkey\"\nFOREIGN KEY (\"entityBId\")\nREFERENCES \"public\".\"entity\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"prediction_entityBId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "prediction_entityBId_fkey",
+          "public",
+          "\"public\".\"prediction\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.recordEntity.recordEntity_entityId_fkey",
+    "label": "Add foreign key \"recordEntity_entityId_fkey\" on \"recordEntity\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "recordEntity_entityId_fkey",
+        "table": "recordEntity"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"recordEntity_entityId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "recordEntity_entityId_fkey",
+          "public",
+          "\"public\".\"recordEntity\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"recordEntity_entityId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"recordEntity\"\nADD CONSTRAINT \"recordEntity_entityId_fkey\"\nFOREIGN KEY (\"entityId\")\nREFERENCES \"public\".\"entity\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"recordEntity_entityId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "recordEntity_entityId_fkey",
+          "public",
+          "\"public\".\"recordEntity\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.relationship.relationship_entityAId_fkey",
+    "label": "Add foreign key \"relationship_entityAId_fkey\" on \"relationship\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "relationship_entityAId_fkey",
+        "table": "relationship"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"relationship_entityAId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "relationship_entityAId_fkey",
+          "public",
+          "\"public\".\"relationship\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"relationship_entityAId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"relationship\"\nADD CONSTRAINT \"relationship_entityAId_fkey\"\nFOREIGN KEY (\"entityAId\")\nREFERENCES \"public\".\"entity\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"relationship_entityAId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "relationship_entityAId_fkey",
+          "public",
+          "\"public\".\"relationship\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.relationship.relationship_entityBId_fkey",
+    "label": "Add foreign key \"relationship_entityBId_fkey\" on \"relationship\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "relationship_entityBId_fkey",
+        "table": "relationship"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"relationship_entityBId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "relationship_entityBId_fkey",
+          "public",
+          "\"public\".\"relationship\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"relationship_entityBId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"relationship\"\nADD CONSTRAINT \"relationship_entityBId_fkey\"\nFOREIGN KEY (\"entityBId\")\nREFERENCES \"public\".\"entity\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"relationship_entityBId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "relationship_entityBId_fkey",
+          "public",
+          "\"public\".\"relationship\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.suspiciousPattern.suspiciousPattern_caseId_fkey",
+    "label": "Add foreign key \"suspiciousPattern_caseId_fkey\" on \"suspiciousPattern\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "suspiciousPattern_caseId_fkey",
+        "table": "suspiciousPattern"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"suspiciousPattern_caseId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "suspiciousPattern_caseId_fkey",
+          "public",
+          "\"public\".\"suspiciousPattern\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"suspiciousPattern_caseId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"suspiciousPattern\"\nADD CONSTRAINT \"suspiciousPattern_caseId_fkey\"\nFOREIGN KEY (\"caseId\")\nREFERENCES \"public\".\"case\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"suspiciousPattern_caseId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "suspiciousPattern_caseId_fkey",
+          "public",
+          "\"public\".\"suspiciousPattern\""
+        ]
+      }
+    ]
+  },
+  {
+    "id": "foreignKey.suspiciousPattern.suspiciousPattern_entityId_fkey",
+    "label": "Add foreign key \"suspiciousPattern_entityId_fkey\" on \"suspiciousPattern\"",
+    "operationClass": "additive",
+    "target": {
+      "id": "postgres",
+      "details": {
+        "schema": "public",
+        "objectType": "foreignKey",
+        "name": "suspiciousPattern_entityId_fkey",
+        "table": "suspiciousPattern"
+      }
+    },
+    "precheck": [
+      {
+        "description": "ensure FK \"suspiciousPattern_entityId_fkey\" does not exist",
+        "sql": "SELECT NOT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "suspiciousPattern_entityId_fkey",
+          "public",
+          "\"public\".\"suspiciousPattern\""
+        ]
+      }
+    ],
+    "execute": [
+      {
+        "description": "add FK \"suspiciousPattern_entityId_fkey\"",
+        "sql": "ALTER TABLE \"public\".\"suspiciousPattern\"\nADD CONSTRAINT \"suspiciousPattern_entityId_fkey\"\nFOREIGN KEY (\"entityId\")\nREFERENCES \"public\".\"entity\" (\"id\")"
+      }
+    ],
+    "postcheck": [
+      {
+        "description": "verify FK \"suspiciousPattern_entityId_fkey\" exists",
+        "sql": "SELECT EXISTS (SELECT 1 AS \"one\" FROM \"pg_constraint\" AS \"c\" INNER JOIN \"pg_namespace\" AS \"n\" ON \"n\".\"oid\" = \"c\".\"connamespace\" WHERE (\"c\".\"conname\" = $1 AND \"n\".\"nspname\" = $2 AND \"c\".\"conrelid\" = to_regclass($3))) AS \"result\"",
+        "params": [
+          "suspiciousPattern_entityId_fkey",
+          "public",
+          "\"public\".\"suspiciousPattern\""
+        ]
+      }
+    ]
+  }
+]

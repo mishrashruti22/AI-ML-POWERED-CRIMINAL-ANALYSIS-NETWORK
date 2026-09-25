@@ -1,0 +1,254 @@
+/* =========================================================
+   PROBNEXUS — DASHBOARD PAGE
+   ========================================================= */
+
+.dashboard-page {
+    --maroon: #8e1026;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: #f4f0ec;
+    overflow-x: hidden;
+}
+
+/* Hero banner */
+.dashboard-hero {
+    position: relative;
+    padding: 90px 6% 60px;
+    background-image:
+        linear-gradient(90deg,
+            rgba(245, 241, 237, 0.97) 0%,
+            rgba(245, 241, 237, 0.85) 60%,
+            rgba(245, 241, 237, 0.5) 100%),
+        url("/investigation-bg.png");
+    background-size: cover;
+    background-position: center top;
+    border-bottom: 1px solid rgba(89, 68, 68, 0.1);
+}
+
+.dashboard-hero-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.dashboard-hero-label span:first-child {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #464142;
+}
+
+.db-label-line {
+    width: 50px;
+    height: 1.5px;
+    background: var(--maroon);
+    display: block;
+}
+
+.dashboard-hero h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(40px, 4.5vw, 62px);
+    font-weight: 500;
+    color: #171515;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin: 0 0 16px;
+}
+
+.dashboard-hero h1 span { color: var(--maroon); }
+
+.dashboard-hero p {
+    font-size: 16px;
+    color: #696364;
+    max-width: 500px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Stats row */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: rgba(89, 68, 68, 0.1);
+    border-top: 1px solid rgba(89, 68, 68, 0.1);
+}
+
+.dashboard-stat {
+    background: #f8f5f2;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.stat-value {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #241d1e;
+    line-height: 1;
+}
+
+.stat-value span { color: var(--maroon); }
+
+.stat-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: #817a7a;
+    text-transform: uppercase;
+}
+
+/* Main panel area */
+.dashboard-body {
+    padding: 60px 6% 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-section-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.dashboard-section-head h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: #241d1e;
+    margin: 0;
+}
+
+.dashboard-section-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(89, 68, 68, 0.12);
+}
+
+/* Module cards grid */
+.dashboard-modules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+}
+
+.dashboard-module {
+    background: rgba(250, 247, 243, 0.9);
+    border: 1px solid rgba(89, 68, 68, 0.1);
+    border-radius: 12px;
+    padding: 26px;
+    cursor: pointer;
+    transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+.dashboard-module:hover {
+    border-color: rgba(142, 16, 38, 0.3);
+    box-shadow: 0 8px 24px rgba(42, 25, 25, 0.08);
+    transform: translateY(-2px);
+}
+
+.module-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: rgba(142, 16, 38, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 14px;
+}
+
+.dashboard-module h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #241d1e;
+    margin: 0 0 6px;
+}
+
+.dashboard-module p {
+    font-size: 12px;
+    color: #696364;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.module-status {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    color: var(--maroon);
+    text-transform: uppercase;
+}
+
+/* Coming soon notice */
+.coming-soon-notice {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    background: rgba(212, 165, 30, 0.07);
+    border: 1px solid rgba(212, 165, 30, 0.25);
+    border-radius: 10px;
+    font-size: 13px;
+    color: #6b4f10;
+}
+
+.coming-soon-notice strong { font-weight: 700; }
+
+/* Footer */
+.dashboard-footer {
+    background: linear-gradient(90deg, #171315, #251619 55%, #32161b);
+    color: #fff;
+    padding: 28px 6%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.db-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.db-footer-logo {
+    width: 36px;
+    height: 40px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+}
+
+.db-footer-name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.db-footer-right {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.6);
+}
+
+@media (max-width: 900px) {
+    .dashboard-modules { grid-template-columns: repeat(2, 1fr); }
+    .dashboard-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .dashboard-modules { grid-template-columns: 1fr; }
+    .dashboard-hero { padding: 80px 25px 50px; }
+    .dashboard-body { padding: 40px 25px 60px; }
+}
